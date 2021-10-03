@@ -1,0 +1,62 @@
+---
+name: Test
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+      - name: Add Poetry to $PATH
+        run: |
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - name: Poetry Check
+        run: poetry check --no-interaction
+
+      - name: Python Packages Cache
+        id: cached-python-dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-poetry-packages
+        with:
+          path: ${{ github.workspace }}/.venv
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Poetry Install
+        if: steps.cached-python-dependencies.cache-hit != 'true'
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry install --no-interaction
+
+      - name: Run Tests
+        run: poetry run make test
+
+      - name: Publish Code Coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{ github.workspace }}/coverage.xml:coverage.py
+
+      - name: Build Artifacts
+        run: poetry build
