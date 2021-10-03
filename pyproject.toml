@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-fabdb"
-version = "0.0.1"
+version = "0.0.2"
 description = "A Singer tap for extracting data from the FaB DB API, built with the Singer SDK."
 authors = ["David Wallace <david.wallace@dutchie.com>"]
 license = "MIT"
