@@ -5,6 +5,7 @@ description = "A Singer tap for extracting data from the FaB DB API, built with 
 authors = ["David Wallace <david.wallace@dutchie.com>"]
 license = "MIT"
 readme = "README.md"
+keywords = ["flesh", "and", "blood"]
 
 [tool.poetry.dependencies]
 python = "<3.10,>=3.6.2"
