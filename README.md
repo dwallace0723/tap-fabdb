@@ -2,6 +2,9 @@
     <em>tap-fabdb, a Singer tap for extracting data from the <a href="https://fabdb.net/resources/api" target="_blank">FaB DB API</a>.</em>
 </p>
 <p align="center">
+  <a href="https://badge.fury.io/py/tap-fabdb">
+    <img src="https://badge.fury.io/py/tap-fabdb.svg" alt="PyPI version" height="18">
+  </a>
   <a href="https://github.com/dwallace0723/tap-fabdb/actions">
     <img src="https://github.com/dwallace0723/tap-fabdb/actions/workflows/test.yml/badge.svg"  alt="GitHub Actions" />
   </a>
