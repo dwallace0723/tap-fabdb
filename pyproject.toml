@@ -16,7 +16,7 @@ pytest = "^6.1.2"
 black = "^21.8b0"
 flake8 = "^3.9.0"
 mypy = "^0.910"
-coverage = {version = "^5.5", extras = ["toml"]}
+coverage = {version = "^6.2", extras = ["toml"]}
 pytest-cov = "^2.11.1"
 flake8-black = "^0.2.3"
 isort = "^5.9.3"
